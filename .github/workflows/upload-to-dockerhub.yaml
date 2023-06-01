@@ -1,0 +1,36 @@
+name: Upload image to Docker Hub
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+    paths-ignore:
+     - ".github/**"
+     - "**.md"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+     - ".github/**"
+     - "**.md"
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: github.ref_name != 'main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:${{ github.ref_name }}
+
+  build-and-push:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@main
+      with:
+        name: ${{ secrets.DOCKER_USERNAME }}/freeradius
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: latest
