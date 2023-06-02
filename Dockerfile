@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM bullseye-slim:latest
 
 RUN apk --no-cache add --update freeradius freeradius-postgresql freeradius-ldap freeradius-utils 
 
