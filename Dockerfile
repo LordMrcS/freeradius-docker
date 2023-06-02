@@ -1,4 +1,4 @@
-FROM bullseye-slim:latest
+FROM debian:bullseye-slim
 
 RUN apt install --update freeradius freeradius-postgresql freeradius-ldap freeradius-utils 
 
