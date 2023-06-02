@@ -1,8 +1,8 @@
 FROM bullseye-slim:latest
 
-RUN apk --no-cache add --update freeradius freeradius-postgresql freeradius-ldap freeradius-utils 
+RUN apt install --update freeradius freeradius-postgresql freeradius-ldap freeradius-utils 
 
-RUN rm -rf /var/cache/apk/*
+RUN rm -rf /var/cache/apt/*
 
 EXPOSE 1812/udp
 EXPOSE 1813/udp
